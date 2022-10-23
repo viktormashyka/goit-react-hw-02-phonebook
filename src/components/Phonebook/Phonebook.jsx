@@ -8,10 +8,6 @@ export class Phonebook extends Component {
   static propTypes = {};
 
   state = {
-    // contacts: [],
-    // name: '',
-    // number: '',
-    // filter: '',
     ...INITIAL_STATE,
   };
 
@@ -53,9 +49,9 @@ export class Phonebook extends Component {
 
   render() {
     const { contacts, name, number, filter } = this.state;
-    const visibleContacts = contacts.filter(contact =>
-      contact.toLowerCase().includes(filter)
-    );
+    // const visibleContacts = contacts.filter(contact =>
+    //   contact.toLowerCase().includes(filter)
+    // );
     return (
       <div>
         <h1>Phonebook</h1>
@@ -111,11 +107,11 @@ export class Phonebook extends Component {
             />
           </label>
           <ul>
-            {visibleContacts.map((contact, inx) => (
+            {/* {visibleContacts.map((contact, inx) => (
               <li key={inx}>
                 {contact.name}: {contact.number}
               </li>
-            ))}
+            ))} */}
           </ul>
         </div>
       </div>
@@ -124,7 +120,7 @@ export class Phonebook extends Component {
 }
 
 Phonebook.propTypes = {};
-
+//*//
 // const getSortedFriends = users =>
 //   users
 //     .flatMap(user => user.friends)
