@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
-const INITIAL_STATE = { contacts: [], name: '', number: '' };
-// const newContact = {name: };
+const INITIAL_STATE = { contacts: [], name: '', number: '', filter: '' };
 
 export class Phonebook extends Component {
   static propTypes = {};
@@ -12,6 +11,7 @@ export class Phonebook extends Component {
     // contacts: [],
     // name: '',
     // number: '',
+    // filter: '',
     ...INITIAL_STATE,
   };
 
@@ -19,7 +19,6 @@ export class Phonebook extends Component {
   numberId = nanoid();
 
   handleChange = evt => {
-    // this.setState({ name: evt.target.value });
     const { name, value } = evt.target;
     this.setState({ [name]: value });
     console.log('{ [name]: value }, ', { [name]: value });
@@ -27,18 +26,14 @@ export class Phonebook extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    const { contacts, name, number } = this.state;
-    console.log(`contacts: ${contacts}, name: ${name}, number: ${number}`);
+    const { contacts, name, number, filter } = this.state;
+    console.log(
+      `contacts: ${contacts}, name: ${name}, number: ${number}, filter: ${filter}`
+    );
     this.props.onSubmit({ ...this.state });
 
-    // this.setState({ name: evt.target.value });
-
-    // this.state.contacts.push(this.state.name);
-    // console.log('this.state.contacts, ', this.state.contacts);
-    // console.log('phoneContacts, ', phoneContacts);
     this.addContact();
 
-    // evt.target.reset();
     this.reset();
   };
 
@@ -47,21 +42,20 @@ export class Phonebook extends Component {
   };
 
   addContact = () => {
-    const { contacts, name, number } = this.state;
+    const { contacts, name, number, filter } = this.state;
     const newContact = { name, number };
-    // this.state.contacts.push(this.state.name);
-    // const newContact = { [name]: value };
     this.state.contacts.push(newContact);
-    // this.setState({
-    //   newContacts: this.state.name,
-    // });
-    console.log('this.state.contacts: 45, ', this.state.contacts);
-    console.log('newContact, ', newContact);
+
+    // this.setState(prevState => ({
+    //   contacts: [newContact, ...prevState.contacts],
+    // }));
   };
 
   render() {
-    const { contacts, name, number } = this.state;
-    // const newContact = { name, number };
+    const { contacts, name, number, filter } = this.state;
+    const visibleContacts = contacts.filter(contact =>
+      contact.toLowerCase().includes(filter)
+    );
     return (
       <div>
         <h1>Phonebook</h1>
@@ -103,9 +97,42 @@ export class Phonebook extends Component {
             ))}
           </ul>
         </div>
+        <div>
+          <label htmlFor="">
+            Find contacts by name
+            <input
+              type="text"
+              name="filter"
+              value={filter}
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+              onChange={this.handleChange}
+            />
+          </label>
+          <ul>
+            {visibleContacts.map((contact, inx) => (
+              <li key={inx}>
+                {contact.name}: {contact.number}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
 }
 
 Phonebook.propTypes = {};
+
+// const getSortedFriends = users =>
+//   users
+//     .flatMap(user => user.friends)
+//     .filter((friend, index, array) => array.indexOf(friend) === index)
+//     .sort((a, b) => a.localeCompare(b));
+
+// const getSortedContactsByName = contacts =>
+//   contacts
+//     .map(contact => contact.friends)
+//     .filter((name, index, array) => array.indexOf(name) === index)
+//     .sort((a, b) => a.localeCompare(b));
