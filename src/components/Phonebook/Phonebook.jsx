@@ -40,17 +40,17 @@ export class Phonebook extends Component {
   addContact = () => {
     const { name, number } = this.state;
     const newContact = { name, number };
-    this.state.contacts.push(newContact);
+    // this.state.contacts.push(newContact);
 
-    // this.setState(prevState => ({
-    //   contacts: [newContact, ...prevState.contacts],
-    // }));
+    this.setState(prevState => ({
+      contacts: [newContact, ...prevState.contacts],
+    }));
   };
 
   render() {
     const { contacts, name, number, filter } = this.state;
     const visibleContacts = contacts.filter(contact =>
-      contact.toLowerCase().includes(filter)
+      contact.name.toLowerCase().includes(filter)
     );
     return (
       <div>
