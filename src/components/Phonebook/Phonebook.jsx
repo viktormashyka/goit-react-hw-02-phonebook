@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const INITIAL_STATE = { contacts: [], name: '', number: '', filter: '' };
 
@@ -38,7 +38,7 @@ export class Phonebook extends Component {
   };
 
   addContact = () => {
-    const { contacts, name, number, filter } = this.state;
+    const { name, number } = this.state;
     const newContact = { name, number };
     this.state.contacts.push(newContact);
 
@@ -49,9 +49,9 @@ export class Phonebook extends Component {
 
   render() {
     const { contacts, name, number, filter } = this.state;
-    // const visibleContacts = contacts.filter(contact =>
-    //   contact.toLowerCase().includes(filter)
-    // );
+    const visibleContacts = contacts.filter(contact =>
+      contact.toLowerCase().includes(filter)
+    );
     return (
       <div>
         <h1>Phonebook</h1>
@@ -107,11 +107,11 @@ export class Phonebook extends Component {
             />
           </label>
           <ul>
-            {/* {visibleContacts.map((contact, inx) => (
+            {visibleContacts.map((contact, inx) => (
               <li key={inx}>
                 {contact.name}: {contact.number}
               </li>
-            ))} */}
+            ))}
           </ul>
         </div>
       </div>
@@ -119,7 +119,7 @@ export class Phonebook extends Component {
   }
 }
 
-Phonebook.propTypes = {};
+// Phonebook.propTypes = {};
 //*//
 // const getSortedFriends = users =>
 //   users
