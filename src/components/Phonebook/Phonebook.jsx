@@ -72,11 +72,11 @@ export class Phonebook extends Component {
     );
   };
 
-  deleteContact = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contact.id),
-    }));
-  };
+  // deleteContact = id => {
+  //   this.setState(prevState => ({
+  //     contacts: prevState.contacts.filter(contact => contact.id !== contact.id),
+  //   }));
+  // };
 
   removeContact = inx => {
     const { contacts } = this.state;
@@ -102,15 +102,16 @@ export class Phonebook extends Component {
     const { handleSubmit, handleChange, changeFilter, removeContact } = this;
     return (
       <div>
-        <h1>Phonebook</h1>
+        <h1 style={{ marginLeft: 30, fontSize: 32 }}>Phonebook</h1>
         {/* <ContactForm
           value={(name, number)}
           onSubmit={handleSubmit}
           onChange={handleChange}
         /> */}
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
             Name
+            <br />
             <input
               type="text"
               name="name"
@@ -118,11 +119,14 @@ export class Phonebook extends Component {
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
-              onChange={this.handleChange}
+              onChange={handleChange}
+              style={{ marginLeft: 30, fontSize: 24 }}
             />
           </label>
-          <label htmlFor="">
+          <br />
+          <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
             Number
+            <br />
             <input
               type="tel"
               name="number"
@@ -130,13 +134,17 @@ export class Phonebook extends Component {
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
-              onChange={this.handleChange}
+              onChange={handleChange}
+              style={{ marginLeft: 30, fontSize: 24 }}
             />
           </label>
-          <button type="submit">Add contact</button>
+          <br />
+          <button type="submit" style={{ marginLeft: 30, fontSize: 16 }}>
+            Add contact
+          </button>
         </form>
         <div>
-          <h2>Contacts</h2>
+          <h2 style={{ marginLeft: 30, fontSize: 32 }}>Contacts</h2>
 
           {/* <ul>
             {contacts.map(({ name, number }) => (

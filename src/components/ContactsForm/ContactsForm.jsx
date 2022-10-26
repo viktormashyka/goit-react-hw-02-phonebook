@@ -1,8 +1,9 @@
 export const ContactForm = ({ name, number, handleSubmit, handleChange }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="">
+    <form onSubmit={this.handleSubmit}>
+      <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
         Name
+        <br />
         <input
           type="text"
           name="name"
@@ -11,10 +12,13 @@ export const ContactForm = ({ name, number, handleSubmit, handleChange }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={handleChange}
+          style={{ marginLeft: 30, fontSize: 24 }}
         />
       </label>
-      <label htmlFor="">
+      <br />
+      <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
         Number
+        <br />
         <input
           type="tel"
           name="number"
@@ -23,9 +27,13 @@ export const ContactForm = ({ name, number, handleSubmit, handleChange }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={handleChange}
+          style={{ marginLeft: 30, fontSize: 24 }}
         />
       </label>
-      <button type="submit">Add contact</button>
+      <br />
+      <button type="submit" style={{ marginLeft: 30, fontSize: 16 }}>
+        Add contact
+      </button>
     </form>
   );
 };

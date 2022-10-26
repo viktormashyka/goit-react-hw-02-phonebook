@@ -1,7 +1,8 @@
 export const FilterBox = ({ filter, changeFilter }) => {
   return (
-    <label htmlFor="">
+    <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
       Find contacts by name
+      <br />
       <input
         type="text"
         name="filter"
@@ -10,6 +11,7 @@ export const FilterBox = ({ filter, changeFilter }) => {
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
         onChange={changeFilter}
+        style={{ marginLeft: 30, fontSize: 24 }}
       />
     </label>
   );
