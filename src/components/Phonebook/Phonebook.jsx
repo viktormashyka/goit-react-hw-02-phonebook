@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {
-  NotificationContainer,
-  NotificationManager,
-} from 'react-notifications';
+// import {
+//   NotificationContainer,
+//   NotificationManager,
+// } from 'react-notifications';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { nanoid } from 'nanoid';
 // import PropTypes from 'prop-types';
