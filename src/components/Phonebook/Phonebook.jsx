@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   name: '',
   number: '',
   filter: '',
-  id: '',
+  // id: '',
 };
 
 export class Phonebook extends Component {
@@ -34,19 +34,19 @@ export class Phonebook extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    const { name, number, id } = this.state;
+    const { name, number } = this.state;
 
     this.props.onSubmit({ ...this.state });
-    this.addContact(name, number, id);
+    this.addContact(name, number);
     this.reset();
   };
 
   reset = () => {
-    this.setState({ name: '', number: '', id: '' });
+    this.setState({ name: '', number: '' });
   };
 
   addContact = contact => {
-    const { name, number, contacts, id } = this.state;
+    const { name, number, contacts } = this.state;
     const newContact = { id: nanoid(), name, number };
 
     for (const contact of contacts) {
@@ -97,18 +97,18 @@ export class Phonebook extends Component {
   // }
 
   render() {
-    const { name, number, filter, id } = this.state;
+    const { name, number, filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
     const { handleSubmit, handleChange, changeFilter, removeContact } = this;
     return (
       <div>
         <h1 style={{ marginLeft: 30, fontSize: 32 }}>Phonebook</h1>
-        {/* <ContactForm
-          value={(name, number)}
+        <ContactForm
+          value={{ name, number }}
           onSubmit={handleSubmit}
           onChange={handleChange}
-        /> */}
-        <form onSubmit={handleSubmit}>
+        />
+        {/* <form onSubmit={handleSubmit}>
           <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
             Name
             <br />
@@ -142,7 +142,7 @@ export class Phonebook extends Component {
           <button type="submit" style={{ marginLeft: 30, fontSize: 16 }}>
             Add contact
           </button>
-        </form>
+        </form> */}
         <div>
           <h2 style={{ marginLeft: 30, fontSize: 32 }}>Contacts</h2>
 
