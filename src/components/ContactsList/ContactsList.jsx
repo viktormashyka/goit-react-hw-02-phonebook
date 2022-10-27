@@ -1,7 +1,9 @@
-export const ContactListBox = ({ visibleContacts, removeContact }) => {
+import React from 'react';
+
+export const ContactListBox = ({ visibleContacts, onRemoveContact }) => {
   return (
     <ul>
-      {visibleContacts.map((contact, inx) => (
+      {visibleContacts.map(contact => (
         <li
           key={contact.id}
           style={{ marginLeft: 30, fontSize: 24, widht: 400 }}
@@ -10,7 +12,7 @@ export const ContactListBox = ({ visibleContacts, removeContact }) => {
           <button
             type="submit"
             onClick={() => {
-              removeContact(inx);
+              onRemoveContact(contact.id);
             }}
             style={{ marginLeft: 30, fontSize: 16 }}
           >

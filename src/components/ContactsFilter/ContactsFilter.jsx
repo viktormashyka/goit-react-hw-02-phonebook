@@ -1,4 +1,6 @@
-export const FilterBox = ({ filter, changeFilter }) => {
+import React from 'react';
+
+export const FilterBox = ({ value, onChange }) => {
   return (
     <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
       Find contacts by name
@@ -6,11 +8,11 @@ export const FilterBox = ({ filter, changeFilter }) => {
       <input
         type="text"
         name="filter"
-        value={filter}
+        value={value}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-        onChange={changeFilter}
+        onChange={onChange}
         style={{ marginLeft: 30, fontSize: 24 }}
       />
     </label>

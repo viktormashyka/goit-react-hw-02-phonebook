@@ -7,46 +7,21 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { nanoid } from 'nanoid';
 // import PropTypes from 'prop-types';
 
-import { ContactForm } from '../ContactsForm/ContactsForm';
+import ContactForm from '../ContactsForm/ContactsForm';
 import { FilterBox } from '../ContactsFilter/ContactsFilter';
 import { ContactListBox } from '../ContactsList/ContactsList';
-
-const INITIAL_STATE = {
-  contacts: [],
-  name: '',
-  number: '',
-  filter: '',
-  // id: '',
-};
 
 export class Phonebook extends Component {
   static propTypes = {};
 
   state = {
-    ...INITIAL_STATE,
-  };
-
-  handleChange = evt => {
-    const { name, value } = evt.target;
-    this.setState({ [name]: value });
-    // console.log('{ [name]: value }, ', { [name]: value });
-  };
-
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const { name, number } = this.state;
-
-    this.props.onSubmit({ ...this.state });
-    this.addContact(name, number);
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({ name: '', number: '' });
+    contacts: [],
+    filter: '',
   };
 
   addContact = contact => {
-    const { name, number, contacts } = this.state;
+    const { contacts } = this.state;
+    const { name, number } = contact;
     const newContact = { id: nanoid(), name, number };
 
     for (const contact of contacts) {
@@ -58,6 +33,7 @@ export class Phonebook extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
+    console.log('addContact..., contacts ', contacts);
   };
 
   changeFilter = evt => {
@@ -72,121 +48,29 @@ export class Phonebook extends Component {
     );
   };
 
-  // deleteContact = id => {
-  //   this.setState(prevState => ({
-  //     contacts: prevState.contacts.filter(contact => contact.id !== contact.id),
-  //   }));
-  // };
-
-  removeContact = inx => {
-    const { contacts } = this.state;
-    console.log('this contact need to remove...', inx);
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts.splice(inx, 1)],
-      // contacts: [...prevState.contacts.slice.splice(inx, 1)],
+  removeContact = id => {
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
     }));
-    console.log('contacts in visible after: ', contacts);
   };
 
-  // this.setState({ removeBtnInx: inx })
-  // if (inx === this.state.removeBtnInx) {
-  //   console.log('this contact need to remove...', inx);
-  //   this.setState(prevState => ({
-  //     contacts: [...prevState.contacts.slice.splice(inx, 1)],
-  //   }));
-  // }
-
   render() {
-    const { name, number, filter } = this.state;
+    const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
-    const { handleSubmit, handleChange, changeFilter, removeContact } = this;
+    const { addContact, changeFilter, removeContact } = this;
     return (
       <div>
         <h1 style={{ marginLeft: 30, fontSize: 32 }}>Phonebook</h1>
-        <ContactForm
-          value={{ name, number }}
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-        />
-        {/* <form onSubmit={handleSubmit}>
-          <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
-            Name
-            <br />
-            <input
-              type="text"
-              name="name"
-              value={name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              onChange={handleChange}
-              style={{ marginLeft: 30, fontSize: 24 }}
-            />
-          </label>
-          <br />
-          <label htmlFor="" style={{ marginLeft: 30, fontSize: 24 }}>
-            Number
-            <br />
-            <input
-              type="tel"
-              name="number"
-              value={number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-              onChange={handleChange}
-              style={{ marginLeft: 30, fontSize: 24 }}
-            />
-          </label>
-          <br />
-          <button type="submit" style={{ marginLeft: 30, fontSize: 16 }}>
-            Add contact
-          </button>
-        </form> */}
+        <ContactForm onSubmit={addContact} />
         <div>
           <h2 style={{ marginLeft: 30, fontSize: 32 }}>Contacts</h2>
-
-          {/* <ul>
-            {contacts.map(({ name, number }) => (
-              <li key={}>
-                {name}: {number}
-              </li>
-            ))}
-          </ul> */}
         </div>
         <div>
           <FilterBox value={filter} onChange={changeFilter} />
-          {/* <label htmlFor="">
-            Find contacts by name
-            <input
-              type="text"
-              name="filter"
-              value={filter}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              onChange={this.changeFilter}
-            />
-          </label> */}
           <ContactListBox
             visibleContacts={visibleContacts}
-            onClick={removeContact}
+            onRemoveContact={removeContact}
           />
-          {/* <ul>
-            {visibleContacts.map((contact, inx) => (
-              <li key={contact.id}>
-                {contact.name}: {contact.number}
-                <button
-                  type="submit"
-                  onClick={() => {
-                    this.removeContact(inx);
-                  }}
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul> */}
         </div>
       </div>
     );
